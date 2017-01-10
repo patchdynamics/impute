@@ -16,10 +16,14 @@ names(data) = c('var', 'date.var')
 
 
 discharge = maumee # because usgs is being annoying
+write.csv(maumee, file='MaumeeDischarge.csv')
 ignore = seq.POSIXt(as.POSIXlt('1978-10-01', tz=Sys.timezone()), as.POSIXlt('1981-10-12', tz=Sys.timezone()),'days')
 
 monthly.loads.SRP = impute.daily.concentrations(data$var, data$date.var, discharge$val, discharge$datetime, ignore)
 write.csv(monthly.loads.SRP, file='monthly.loads.SRP.csv')
+
+monthly.loads.SRP.lm = impute.daily.concentrations(data$var, data$date.var, discharge$val, discharge$datetime, ignore,
+                                                   use.linear.model = TRUE)
 
 # TP
 var='TP..mg.L.as.P'
@@ -33,6 +37,9 @@ ignore = seq.POSIXt(as.POSIXlt('1978-10-01', tz=Sys.timezone()), as.POSIXlt('198
 
 monthly.loads.TP = impute.daily.concentrations(data$var, data$date.var, discharge$val, discharge$datetime, ignore, 
                                             use.linear.model = TRUE)
-write.csv(monthly.loads.TP, file='monthly.loads.TP.csv')
+write.csv(monthly.loads.TP, file='monthly.loads.TP.lm.csv')
 
+monthly.loads.TP.mean = impute.daily.concentrations(data$var, data$date.var, discharge$val, discharge$datetime, ignore, 
+                                               use.linear.model = FALSE)
+write.csv(monthly.loads.TP.mean, file='monthly.loads.TP.mean.csv')
 

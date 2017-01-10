@@ -29,7 +29,7 @@ impute.daily.concentrations = function(concentration, concentration.dates,
   data.xts$skip[ignore] = TRUE
   impute = which(is.na(data.xts$var & data.xts$skip==FALSE))
   nas = which(is.na(data.xts$var))
-  for(i in nas){
+  for(i in impute){
     d = abs(.index(data.xts)[i] - .index(data.xts))
     d[nas] = NA
     df.sort = data.frame(dist = d, var = data.xts$var, discharge=data.xts$discharge)
