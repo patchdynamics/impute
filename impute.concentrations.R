@@ -36,7 +36,7 @@ impute.daily.concentrations = function(concentration, concentration.dates,
     df.sort = dplyr::arrange(df.sort, dist)
     if(use.linear.model){
       lm.model = lm(var ~ discharge, df.sort[1:window.size,])
-      imputed.conf = predict(lm.model, data.frame(discharge = data.xts$discharge[i]))
+      imputed.conc = predict(lm.model, data.frame(discharge = data.xts$discharge[i]))
     } else {
       imputed.conc = mean(df.sort[1:window.size,]$var)
     }
