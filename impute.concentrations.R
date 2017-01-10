@@ -5,8 +5,7 @@ impute.daily.concentrations = function(concentration, concentration.dates,
                                        discharge, discharge.dates, 
                                        ignore=c(),
                                        use.linear.model=FALSE,
-                                       window.size=10 #,
-                                       #mode='nearest'  # option not implemented ('rolling' mean)
+                                       window.size=10
 ){
   data = data.frame(var = concentration, date.var=concentration.dates)
   discharge = data.frame(val=discharge, datetime=discharge.dates)
