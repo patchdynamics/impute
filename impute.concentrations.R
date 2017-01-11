@@ -1,11 +1,11 @@
 library(xts)
 library(dplyr)
 
-impute.daily.concentrations = function(concentration, concentration.dates, 
-                                       discharge, discharge.dates, 
-                                       ignore=c(),
-                                       use.linear.model=FALSE,
-                                       window.size=10
+impute.daily.loads = function(concentration, concentration.dates, 
+                              discharge, discharge.dates, 
+                              ignore=c(),
+                              use.linear.model=FALSE,
+                              window.size=10
 ){
   data = data.frame(var = concentration, date.var=concentration.dates)
   discharge = data.frame(val=discharge, datetime=discharge.dates)
@@ -20,7 +20,8 @@ impute.daily.concentrations = function(concentration, concentration.dates,
   discharge.xts = discharge.xts['1975-01-01/']
   
   data.xts = xts(data.days$var, order.by=as.POSIXlt(as.character(data.days$date), format='%Y-%m-%d', tz=Sys.timezone()))
-  data.xts = merge(data.xts, discharge.xts)
+  data.xts.merged = merge(data.xts, discharge.xts)
+  data.xts = na.trim(data.xts.merged, sides='both', is.na='any')
   names(data.xts) = c('var', 'discharge')
   
   data.xts$imputed = NA

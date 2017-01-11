@@ -25,6 +25,9 @@ write.csv(monthly.loads.SRP, file='monthly.loads.SRP.csv')
 monthly.loads.SRP.lm = impute.daily.concentrations(data$var, data$date.var, discharge$val, discharge$datetime, ignore,
                                                    use.linear.model = TRUE)
 
+monthly.loads.SRP.30 = impute.daily.concentrations(data$var, data$date.var, discharge$val, discharge$datetime, 
+                                                   ignore, window.size=30)
+
 # TP
 var='TP..mg.L.as.P'
 date.var = 'Datetime..date.and.time.of.sample.collection.'
@@ -42,4 +45,7 @@ write.csv(monthly.loads.TP, file='monthly.loads.TP.lm.csv')
 monthly.loads.TP.mean = impute.daily.concentrations(data$var, data$date.var, discharge$val, discharge$datetime, ignore, 
                                                use.linear.model = FALSE)
 write.csv(monthly.loads.TP.mean, file='monthly.loads.TP.mean.csv')
+
+monthly.loads.TP.lm.30 = impute.daily.concentrations(data$var, data$date.var, discharge$val, discharge$datetime, ignore, 
+                                               use.linear.model = TRUE, window.size = 30)
 
